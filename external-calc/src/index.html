@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Külső kalkulátor – Mintelhető CAC</title>
+  <link rel="icon" href="../public/favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="../public/favicon.svg" alt="" />
+      <span>Külső kalkulátor</span>
+    </div>
+    <nav class="nav">
+      <a href="#" class="nav__link is-active">Kalkulátor</a>
+      <a href="#" class="nav__link" aria-disabled="true" title="Demó">Dokumentáció</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1>Mennyit mintelhetsz?</h1>
+      <p class="muted">
+        Demó szabály: <strong>1 CAC / 50 m²</strong> ⇒
+        <code>quota = floor(m2 × 0.02)</code>.
+        Ezt a kvótát küldjük át a dAppodnak.
+      </p>
+
+      <div class="grid">
+        <label class="field">
+          <span class="field__label">Gyár területe (m²)</span>
+          <input id="area" class="input" type="number" inputmode="numeric" placeholder="pl. 2500" min="1" />
+        </label>
+
+        <label class="field">
+          <span class="field__label">Szabály (CAC / m²)</span>
+          <input id="rate" class="input" type="number" step="0.0001" value="0.02" />
+          <span class="hint">0.02 = 1 CAC / 50 m²</span>
+        </label>
+
+        <div class="kpi">
+          <div id="quota" class="kpi__value">0</div>
+          <div class="kpi__label">Max. mintelhető CAC</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a id="go" class="btn" href="#" aria-disabled="true">Tovább a minteléshez</a>
+        <button id="copy" class="btn btn--ghost" disabled>Link másolása</button>
+      </div>
+
+      <div class="muted small">
+        A dApp címe a <code>config.js</code>-ben állítható, vagy felülbírálható az
+        <code>?dapp=https://…</code> query parammal.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Technikai részletek</h2>
+      <ul class="bullets">
+        <li>Teljesen külön site (statikus HTML+CSS+JS).</li>
+        <li>A gomb a dApp <code>/mint</code> útvonalára navigál:
+          <code>/mint?quota=…&area=…&rate=…&source=external</code>.
+        </li>
+        <li>Élesben érdemes aláírt (EIP-712) kvóta-igazolást használni.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© Külső kalkulátor (demo)</span>
+  </footer>
+
+  <script src="./config.js"></script> <!-- DAPP_ORIGIN innen jön -->
+  <script src="./app.js"></script>
+</body>
+</html>
